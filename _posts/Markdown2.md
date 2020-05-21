@@ -1,9 +1,9 @@
 ---
-title: "R Notebook"
-output:
-  html_document:
-    keep_md: true
-    df_print: paged
+layout: post
+categories: posts
+title: "R Notebook" 
+tags: [CFA, CODE]
+date-string: January 2019
 ---
 
 

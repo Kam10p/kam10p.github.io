@@ -1,0 +1,185 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r}
+setwd("D:/Audrey")
+library(readr)
+Dacobs <- read_delim("Dacobs_Audrey_07-05-2020.csv",";", escape_double = FALSE, trim_ws = TRUE)
+#colnames(Dacobs)
+#str(Dacobs)
+```
+
+```{r}
+###########CONCURRENT VALIDITY##############################################
+cor.test(Dacobs$Dacobs_Jumping_Conclusions, Dacobs$CBQp_Jumping_Conclusions)
+summary(lm(Dacobs$Dacobs_Jumping_Conclusions~Dacobs$CBQp_Jumping_Conclusions+Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Belief_Inflexibility,Dacobs$BCIS_Self_Certainty)
+summary(lm(Dacobs$Dacobs_Belief_Inflexibility~Dacobs$BCIS_Self_Certainty+Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Attention_Threats,Dacobs$LSAS_Social_Anx)
+summary(lm(Dacobs$Dacobs_Attention_Threats~Dacobs$LSAS_Social_Anx+Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Social_Cognition_Prob ,Dacobs$SSTICS_ScoreTotal)
+summary(lm(Dacobs$Dacobs_Social_Cognition_Prob ~Dacobs$SSTICS_ScoreTotal +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Subjective_Cognition_Prob  ,Dacobs$ASCO_ScoreTotal )
+summary(lm(Dacobs$Dacobs_Subjective_Cognition_Prob  ~Dacobs$ASCO_ScoreTotal +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_External_Attribution   ,Dacobs$IPSAQ_Negative_IPSAQ)
+summary(lm(Dacobs$Dacobs_External_Attribution  ~Dacobs$IPSAQ_Negative_IPSAQ  +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_External_Attribution   ,Dacobs$IPSAQ_Negative_Personal)
+summary(lm(Dacobs$Dacobs_External_Attribution  ~Dacobs$IPSAQ_Negative_Personal  +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_External_Attribution   ,Dacobs$IPSAQ_Negative_Situational)
+summary(lm(Dacobs$Dacobs_External_Attribution  ~Dacobs$IPSAQ_Negative_Situational  +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_External_Attribution   ,Dacobs$IPSAQ_Negative_Internal)
+summary(lm(Dacobs$Dacobs_External_Attribution  ~Dacobs$IPSAQ_Negative_Internal  +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Safety_Behaviors    ,Dacobs$COPE_Avoidance)
+summary(lm(Dacobs$Dacobs_Safety_Behaviors   ~Dacobs$COPE_Avoidance  +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Safety_Behaviors    ,Dacobs$COPE_Denial)
+summary(lm(Dacobs$Dacobs_Safety_Behaviors   ~Dacobs$COPE_Denial  +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Safety_Behaviors    ,Dacobs$COPE_Self_Blame)
+summary(lm(Dacobs$Dacobs_Safety_Behaviors   ~Dacobs$COPE_Self_Blame   +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Safety_Behaviors    ,Dacobs$COPE_Self_Distraction)
+summary(lm(Dacobs$Dacobs_Safety_Behaviors   ~Dacobs$COPE_Self_Distraction    +Dacobs$Age+Dacobs$DEM_01))
+
+cor.test(Dacobs$Dacobs_Safety_Behaviors    ,Dacobs$COPE_Beh_Disengagement)
+summary(lm(Dacobs$Dacobs_Safety_Behaviors   ~Dacobs$COPE_Beh_Disengagement     +Dacobs$Age+Dacobs$DEM_01))
+```
+
+```{r}
+#######################CUTOFF##############################
+library("OptimalCutpoints")
+
+df=as.data.frame(cbind(x=as.numeric(as.character(Dacobs$Dacobs_Jumping_Conclusions)),y=as.numeric(as.character(Dacobs$APSS_HighRisk)))) 
+Cutpoint1 <- optimal.cutpoints(X = "x", status = "y", tag.healthy=0, methods = "Youden", data = df)
+summary(Cutpoint1)
+
+
+
+
+df=as.data.frame(cbind(x=as.numeric(as.character(Dacobs$Dacobs_Belief_Inflexibility )),y=as.numeric(as.character(Dacobs$APSS_HighRisk)))) 
+Cutpoint2 <- optimal.cutpoints(X = "x", status = "y", tag.healthy=0, methods = "Youden", data = df)
+summary(Cutpoint2)
+
+
+
+df=as.data.frame(cbind(x=as.numeric(as.character(Dacobs$Dacobs_Attention_Threats)),y=as.numeric(as.character(Dacobs$APSS_HighRisk)))) 
+Cutpoint3 <- optimal.cutpoints(X = "x", status = "y", tag.healthy=0, methods = "Youden", data = df)
+summary(Cutpoint3)
+
+
+
+df=as.data.frame(cbind(x=as.numeric(as.character(Dacobs$Dacobs_External_Attribution)),y=as.numeric(as.character(Dacobs$APSS_HighRisk)))) 
+Cutpoint4 <- optimal.cutpoints(X = "x", status = "y", tag.healthy=0, methods = "Youden", data = df)
+summary(Cutpoint4)
+
+
+df=as.data.frame(cbind(x=as.numeric(as.character(Dacobs$Dacobs_Social_Cognition_Prob )),y=as.numeric(as.character(Dacobs$APSS_HighRisk)))) 
+Cutpoint5 <- optimal.cutpoints(X = "x", status = "y", tag.healthy=0, methods = "Youden", data = df)
+summary(Cutpoint5)
+
+
+
+df=as.data.frame(cbind(x=as.numeric(as.character(Dacobs$Dacobs_Subjective_Cognition_Prob)),y=as.numeric(as.character(Dacobs$APSS_HighRisk)))) 
+Cutpoint6 <- optimal.cutpoints(X = "x", status = "y", tag.healthy=0, methods = "Youden", data = df)
+summary(Cutpoint6)
+
+
+
+df=as.data.frame(cbind(x=as.numeric(as.character(Dacobs$Dacobs_Safety_Behaviors)),y=as.numeric(as.character(Dacobs$APSS_HighRisk)))) 
+Cutpoint7 <- optimal.cutpoints(X = "x", status = "y", tag.healthy=0, methods = "Youden", data = df)
+summary(Cutpoint7)
+```
+
+```{r}
+#######################ALPHA##############################
+library("ltm")
+Dac=Dacobs [, grepl("DACOBS_0|DACOBS_1|DACOBS_2|DACOBS_3|DACOBS_4",colnames(Dacobs))] 
+Dac=Dac[complete.cases(Dac),]
+colnames(Dac)
+
+
+
+#total
+cronbach.alpha(Dac)
+#Dacobs_Jumping_Conclusions = items (3,8,16,18,25,30)
+cronbach.alpha(Dac[,c(3,8,16,18,25,30)])
+#Dacobs_Belief_Inflexibility = items  (13,15,26,34,38,41)
+cronbach.alpha(Dac[,c(13,15,26,34,38,41)])
+#Dacobs_Attention_Threats = items (1,2,6,10,20,37)
+cronbach.alpha(Dac[,c(1,2,6,10,20,37)])
+#Dacobs_External_Attribution = items (7,12,17,22,24,29)
+cronbach.alpha(Dac[,c(7,12,17,22,24,29)])
+#Dacobs_Social_Cognition_Prob = items (4,9,11,14,19,39)
+cronbach.alpha(Dac[,c(4,9,11,14,19,39)])
+#Dacobs_Subjective_Cognition_Prob = items (5,21,28,32,36,40)
+cronbach.alpha(Dac[,c(5,21,28,32,36,40)])
+#Dacobs_Safety_Behaviors = items (23,27,31,33,35,42)
+cronbach.alpha(Dac[,c(23,27,31,33,35,42)])
+
+```
+
+```{r}
+
+#######################CFA##############################
+library(lavaan)
+
+colnames(Dac)
+#Dacobs_Jumping_Conclusions = items (3,8,16,18,25,30)
+colnames(Dac[,c(3,8,16,18,25,30)])
+#Dacobs_Belief_Inflexibility = items  (13,15,26,34,38,41)
+colnames(Dac[,c(13,15,26,34,38,41)])
+#Dacobs_Attention_Threats = items (1,2,6,10,20,37)
+colnames(Dac[,c(1,2,6,10,20,37)])
+#Dacobs_External_Attribution = items (7,12,17,22,24,29)
+colnames(Dac[,c(7,12,17,22,24,29)])
+#Dacobs_Social_Cognition_Prob = items (4,9,11,14,19,39)
+colnames(Dac[,c(4,9,11,14,19,39)])
+#Dacobs_Subjective_Cognition_Prob = items (5,21,28,32,36,40)
+colnames(Dac[,c(5,21,28,32,36,40)])
+#Dacobs_Safety_Behaviors = items (23,27,31,33,35,42)
+colnames(Dac[,c(23,27,31,33,35,42)])
+
+
+
+CFA.model <- ' 
+F1 =~ DACOBS_03 + DACOBS_08 + DACOBS_16 + DACOBS_18 + DACOBS_25 + DACOBS_30
+F2 =~ DACOBS_13 + DACOBS_15 + DACOBS_26 + DACOBS_34 + DACOBS_38 + DACOBS_41
+F3 =~ DACOBS_01 + DACOBS_02 + DACOBS_06 + DACOBS_10 + DACOBS_20 + DACOBS_37
+F4 =~ DACOBS_07 + DACOBS_12 + DACOBS_17 + DACOBS_22 + DACOBS_24 + DACOBS_29
+F5 =~ DACOBS_04 + DACOBS_09 + DACOBS_11 + DACOBS_14 + DACOBS_19 + DACOBS_39
+F6 =~ DACOBS_05 + DACOBS_21 + DACOBS_28 + DACOBS_32 + DACOBS_36 + DACOBS_40
+F7 =~ DACOBS_23 + DACOBS_27 + DACOBS_31 + DACOBS_33 + DACOBS_35 + DACOBS_42
+'
+
+fit <- cfa(CFA.model, data = Dac, estimator = "ML")
+summary(fit, fit.measures = TRUE)
+lavInspect(fit, "cov.lv")
+```
+
+```{r}
+#######################PCA##############################
+library(psych)
+PCA=principal(Dac, nfactors = 7, residuals = FALSE,rotate="oblimin")
+summary(PCA)
+FL=PCA$Structure
+FL= round(FL,2)
+FL[abs(FL)<0.20]=" "
+FL=as.data.frame(FL)
+FL
+
+```
+

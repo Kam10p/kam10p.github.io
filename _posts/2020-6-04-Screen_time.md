@@ -2,7 +2,7 @@
 layout: post
 categories: posts
 title: Screen-time, psychopathology, and "dopamine detox" 
-featured-image: /images/ST.png
+featured-image: /images/ST.jpg
 tags: [Youth, Psychopathology, Screen-time]
 date-string: June 2020
 ---

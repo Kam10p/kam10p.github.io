@@ -2,7 +2,7 @@
 layout: post
 categories: posts
 title: Necessity of Explainable Models in Digital Health  
-featured-image: /images/XAI.png
+featured-image: /images/XAI2.png
 tags: [Machine Learning, Interpretability, DigitalHealth]
 date-string: August 2020
 ---

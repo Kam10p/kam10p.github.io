@@ -7,7 +7,8 @@ tags: [Machine Learning, Interpretability, DigitalHealth]
 date-string: September 2020
 ---
 
-##Diagnosing heart disease using a robust and explainable pipeline in tidyverse 
+
+#Diagnosing heart disease using a robust and explainable pipeline in tidyverse 
 
 One application of machine-learning in the domain of health is diagnosing a condition using descriptive information, which can lead to a particular course of treatment or the absence of treatment. In such a context health professionals and patients need to understand the process used by the model to generate a final decision or classification.
 

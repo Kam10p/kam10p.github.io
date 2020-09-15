@@ -361,7 +361,6 @@ heat_tree(test_data, target_lab = 'target')
 ![](/images/unnamed-chunk-10-1.png) <!-- -->
 
 The VIP package provides model specific measure such feature importance based on class impurity for random forests
-
 ```r
 last_rf_fit %>% 
   pluck(".workflow", 1) %>%   
@@ -369,8 +368,6 @@ last_rf_fit %>%
   vip(num_features = 15)
 ```
 ![](/images/unnamed-chunk-11-1.png)<!-- --> 
-
-The VIP package provides model specific measure such feature importance based on class impurity for random forests
 
 Another type of measures provided by the VIP package are model agnostic indices from permutation, ICE, or PDP, procedures. Permutation importance an index for interpreting a machine-learning model, which involves shuffling individual variables after a model has been fit and seeing the effect on accuracy. 
 

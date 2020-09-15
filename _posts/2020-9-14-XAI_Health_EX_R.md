@@ -357,7 +357,7 @@ heat_tree(test_data, target_lab = 'target')
 ##   method         from 
 ##   reorder.hclust gclus
 ```
-[](images/unnamed-chunk-10-1.png) 
+[](/images/unnamed-chunk-10-1.png) 
 
 The VIP package provides model specific measure such feature importance based on class impurity for random forests
 
@@ -367,7 +367,7 @@ last_rf_fit %>%
   pull_workflow_fit() %>% 
   vip(num_features = 15)
 ```
-[](images/unnamed-chunk-11-1.png) 
+[](/images/unnamed-chunk-11-1.png) 
 
 The VIP package provides model specific measure such feature importance based on class impurity for random forests
 
@@ -386,5 +386,5 @@ vip(rfo, method = "permute", metric = "auc", pred_wrapper = pfun,
    target = "target", reference_class = 0)
 ```
 
-![](images/unnamed-chunk-12-1.png)<!-- -->
+![](/images/unnamed-chunk-12-1.png)<!-- -->
 

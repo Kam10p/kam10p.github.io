@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: posts
-title: Necessity of Explainable Models in Digital Health  
+title: Diagnosing heart disease using a robust and explainable pipeline in tidyverse  
 featured-image: /images/XAI2.png
 tags: [Machine Learning, Interpretability, DigitalHealth]
 date-string: September 2020

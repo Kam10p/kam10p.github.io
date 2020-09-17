@@ -2,7 +2,7 @@
 layout: post
 categories: posts
 title: Diagnosing heart disease using a robust and explainable pipeline in tidyverse  
-featured-image: /images/XAI2.png
+featured-image: /images/P1.jpg
 tags: [Machine Learning, Interpretability, DigitalHealth]
 date-string: September 2020
 ---

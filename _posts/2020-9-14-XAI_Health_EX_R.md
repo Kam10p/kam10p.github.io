@@ -18,90 +18,6 @@ First, load the libraries and data
 
 
 
-```
-## Loading required package: dplyr
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```
-## 
-## Attaching package: 'recipes'
-```
-
-```
-## The following object is masked from 'package:stats':
-## 
-##     step
-```
-
-```
-## -- Attaching packages ------------------------------------------------------------------------------------------------- tidymodels 0.1.1 --
-```
-
-```
-## v broom     0.7.0     v purrr     0.3.4
-## v dials     0.0.8     v tibble    3.0.1
-## v ggplot2   3.3.2     v tidyr     1.1.1
-## v infer     0.5.3     v tune      0.1.1
-## v modeldata 0.0.2     v workflows 0.1.3
-## v parsnip   0.1.3     v yardstick 0.0.7
-```
-
-```
-## -- Conflicts ---------------------------------------------------------------------------------------------------- tidymodels_conflicts() --
-## x purrr::discard()  masks scales::discard()
-## x dplyr::filter()   masks stats::filter()
-## x dplyr::lag()      masks stats::lag()
-## x yardstick::spec() masks readr::spec()
-## x recipes::step()   masks stats::step()
-```
-
-```
-## 
-## Attaching package: 'vip'
-```
-
-```
-## The following object is masked from 'package:utils':
-## 
-##     vi
-```
-
-```
-## -- Attaching packages -------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
-```
-
-```
-## v stringr 1.4.0     v forcats 0.5.0
-```
-
-```
-## -- Conflicts ----------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
-## x scales::col_factor() masks readr::col_factor()
-## x purrr::discard()     masks scales::discard()
-## x dplyr::filter()      masks stats::filter()
-## x stringr::fixed()     masks recipes::fixed()
-## x dplyr::lag()         masks stats::lag()
-## x yardstick::spec()    masks readr::spec()
-```
-Lets take a look
-
 ```r
 df <- read_csv("C:/Users/kafza/Downloads/datasets_33180_43520_heart.csv")
 ```
@@ -125,6 +41,7 @@ df <- read_csv("C:/Users/kafza/Downloads/datasets_33180_43520_heart.csv")
 ##   target = col_double()
 ## )
 ```
+Lets take a look
 
 ```r
 df = df %>%
@@ -175,6 +92,7 @@ As indicated [here](https://www.kaggle.com/tentotheminus9/what-causes-heart-dise
 
 ### Here our pipeline includes seven steps as follows:
 +  Step 0
+
 In order to implement a robust pipeline we first create training and test splits with a 10 fold cross validation structure.
 
 
@@ -185,6 +103,7 @@ test_data <- testing(df_split)
 cv_train <- vfold_cv(train_data, v = 10, repeats = 5, strata = "target")
 ```
 +  Step 1
+
 Then we proceed with preprocessing using the recipe package including imputation of missing data, standardisation of numeric variables, and dummy coding of the categorical variables.
 
 
@@ -200,17 +119,9 @@ standardized <- ind_vars %>%
 ```
 
 +  Step 2
+
 The model development step will be implemented using the tidymodels package by setting the model, engine, and variable to be tuned in the cross-validation procedure. This starts with setting up the model:
 
-
-```r
-cores <- parallel::detectCores()
-cores
-```
-
-```
-## [1] 8
-```
 
 ```r
 rf_mod <- 
@@ -236,6 +147,7 @@ rf_mod
 ```
 
 +  Step 3
+
 Development of the workflow and to implement the training step with the grid search function. Setting up the workflow:
 
 
@@ -289,6 +201,7 @@ rf_res <-
 ```
 
 +  Step 4
+
 Find the set of best performing hyperparameter using the performance metrics (collect metrics) and to select best models to fit to test data.
 
 
@@ -310,6 +223,7 @@ autoplot(rf_res)
 
 
 +  Step 5
+
 Fit the best performing model to the test data using the last fit function.
 
 
@@ -344,6 +258,7 @@ last_rf_fit %>%
 
 
 +  Step 6
+
 Interpretability analysis:
 First let's visualize a simplified tree
 
@@ -357,22 +272,22 @@ heat_tree(test_data, target_lab = 'target')
 ##   method         from 
 ##   reorder.hclust gclus
 ```
-![](/images/unnamed-chunk-10-1.png) <!-- -->
+![](/images/unnamed-chunk-10-1.png) 
+
 
 The VIP package provides model specific measure such feature importance based on class impurity for random forests
+
 ```r
 last_rf_fit %>% 
   pluck(".workflow", 1) %>%   
   pull_workflow_fit() %>% 
   vip(num_features = 15)
 ```
-![](/images/unnamed-chunk-11-1.png)<!-- --> 
+![](/images/unnamed-chunk-11-1.png)
 
 Another type of measures provided by the VIP package are model agnostic indices from permutation, ICE, or PDP, procedures. Permutation importance an index for interpreting a machine-learning model, which involves shuffling individual variables after a model has been fit and seeing the effect on accuracy. 
 
 Let's take a look,
-
-
 
 
 ```r
@@ -383,5 +298,5 @@ vip(rfo, method = "permute", metric = "auc", pred_wrapper = pfun,
    target = "target", reference_class = 0)
 ```
 
-![](/images/unnamed-chunk-12-1.png)<!-- -->
+![](/images/unnamed-chunk-12-1.png)
 
